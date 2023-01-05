@@ -11,6 +11,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    //Color pinkish = const Color(15505607);
     return Scaffold(
       appBar: AppBar(
         title: Background_Bois(),
@@ -18,7 +19,7 @@ class _HomeState extends State<Home> {
       ),
       body: Container(child: Column(children: <Widget>[
           Container( 
-            color: Colors.pink,
+            color: const Color(0xFFEC98C7),
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Row(children: <Widget>[
               Expanded(
