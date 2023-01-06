@@ -1,4 +1,4 @@
 class TypesDisplay{
-    late String types;
+    late String type;
     late String imageUrl;
 }
