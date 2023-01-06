@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:samapp/screens/widgets/widgets.dart';
 
@@ -9,6 +11,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  //makes the initial state to get the images for the types
+  @override
+  void initialState(){
+    super.initState();
+
+  }
+
   @override
   Widget build(BuildContext context) {
     //Color pinkish = const Color(15505607);
@@ -32,10 +42,33 @@ class _HomeState extends State<Home> {
               Icon(Icons.search)
             ],
             ),
-          )
+          ),
+          SizedBox(height: 20,),
+          //TypeSection()
         ],
       ),
       ),
     );
   }
+}
+
+class TypeSection extends StatelessWidget {
+  final String imageUrl, types;
+  TypeSection({required this.types, required this.imageUrl});
+  
+  @override
+  Widget build(BuildContext context){
+    return Container(
+      child: Stack(children: <Widget>[
+        Container(
+          child: Image.network(imageUrl),
+        ),
+        Container(
+          child: Text(types),
+          ),
+      ],
+      ),
+    );
+  }
+
 }
