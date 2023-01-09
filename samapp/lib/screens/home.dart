@@ -48,12 +48,51 @@ class _HomeState extends State<Home> {
             ),
           ),
           SizedBox(height: 20,),
-          Container(
-            height: 100,
-            child: Image(
-              image: AssetImage('data/display/dynamicCat'),
-            )
-          )
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              //STATIC IMAGE 
+              Expanded(
+                child: 
+                Stack(
+                  children: [
+                    ClipRRect(
+                    borderRadius: BorderRadius.circular(200),
+                    child: Image.asset('data/display/static.jpg', height: 100, width: 100,) 
+                    ),
+                    Positioned.fill(child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Text("Static"),
+                      )
+                    )
+                  ],
+                )
+              ),
+              //DYNAMIC IMAGE
+              Expanded(
+                child: 
+                Stack(
+                  children: [
+                    ClipRRect(
+                    borderRadius: BorderRadius.circular(200),
+                    child: Image.asset('data/display/dynamicCat', height: 100, width: 100,) 
+                    ),
+                    Positioned.fill(child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Text("Dynamic"),
+                      )
+                    )
+                  ],
+                )
+              ),
+            ],
+          ),
+          // Container(
+          //   height: 100,
+          //   child: Image(
+          //     image: AssetImage('data/display/dynamicCat'),
+          //   )
+          // )
         ],
       ),
       ),
