@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:samapp/screens/home.dart';
-
+//I know this is named main, but practically all the heady code is im home
 void main() {
   runApp(const MyApp());
 }

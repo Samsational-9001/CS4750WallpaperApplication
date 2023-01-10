@@ -49,7 +49,7 @@ class _HomeState extends State<Home> {
           ),
           SizedBox(height: 20,),
           Container(
-            height: 50,
+            height: 70,
             //margin: EdgeInsets.symmetric(horizontal: 8),
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Row(
@@ -165,3 +165,12 @@ class TypeSection extends StatelessWidget {
 
 // }
 
+//If this works right I'll hopefully show all the wallpappers
+class getWallpapers extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
+  
+}
