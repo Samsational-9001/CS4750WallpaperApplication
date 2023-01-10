@@ -48,44 +48,56 @@ class _HomeState extends State<Home> {
             ),
           ),
           SizedBox(height: 20,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              //STATIC IMAGE 
-              Expanded(
-                child: 
-                Stack(
-                  children: [
-                    ClipRRect(
-                    borderRadius: BorderRadius.circular(200),
-                    child: Image.asset('data/display/static.jpg', height: 100, width: 100,) 
-                    ),
-                    Positioned.fill(child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Text("Static"),
+          Container(
+            height: 50,
+            //margin: EdgeInsets.symmetric(horizontal: 8),
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                //STATIC IMAGE 
+                Expanded(
+                  child: 
+                  Stack(
+                    children: [
+                      ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.asset('data/display/static.jpg', height: 60, width: 100,  fit: BoxFit.cover, alignment: Alignment.center,) 
+                      ),
+                      Container(
+                        height: 60, width: 100,
+                        child: Positioned.fill(
+                          child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Text("Static", style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 18),),
+                          )
+                        ),
                       )
-                    )
-                  ],
-                )
-              ),
-              //DYNAMIC IMAGE
-              Expanded(
-                child: 
-                Stack(
-                  children: [
-                    ClipRRect(
-                    borderRadius: BorderRadius.circular(200),
-                    child: Image.asset('data/display/dynamicCat', height: 100, width: 100,) 
-                    ),
-                    Positioned.fill(child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Text("Dynamic"),
+                    ],
+                  )
+                ),
+                //DYNAMIC IMAGE
+                Expanded(
+                  child: 
+                  Stack(
+                    children: [
+                      ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.asset('data/display/dynamicCat', height: 60, width: 100, fit: BoxFit.cover, alignment: Alignment.center,) 
+                      ),
+                      Container(
+                        height: 60, width: 100,
+                        child: Positioned.fill(child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Text("Dynamic", style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 18),),
+                          )
+                        ),
                       )
-                    )
-                  ],
-                )
-              ),
-            ],
+                    ],
+                  )
+                ),
+              ],
+            ),
           ),
           // Container(
           //   height: 100,
@@ -152,3 +164,4 @@ class TypeSection extends StatelessWidget {
 //   }
 
 // }
+
