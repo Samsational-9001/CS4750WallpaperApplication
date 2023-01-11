@@ -1,17 +1,44 @@
 //import 'dart:html';
+//import 'dart:html';
+import 'dart:io';
+import 'dart:async';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:samapp/screens/widgets/widgets.dart';
-import '../imagesDisplay/typesDisplay.dart';
+//import '../imagesDisplay/typesDisplay.dart';
+
+//dud I tried really hard to make this automatic....manual wa the only way I could figure it out
+List<TypesDisplay> _wallpaper = [
+  TypesDisplay(
+    wallPath: "data/wallpapers/staticBackgrounds/staticExample.jpg",
+    type: "static"
+  ),
+  TypesDisplay(
+    wallPath: "data/wallpapers/staticBackgrounds/staticExample.jpg",
+    type: "static"
+  ),
+]; 
+
+//these are global
+// final Directory imagePathStatic = new Directory('data/wallpapers/staticBackgrounds/');
+// final Directory imagePathDynamic = new Directory('data/wallpapers/dynamicBackgrounds/');
+//String directDynamic;
+
+// List imagesDispDynamic = imagesDispDynamic;
+// List imagesDispStatic = imagesDispStatic;
 
 class Home extends StatefulWidget {
   //const MyWidget({super.key});
-
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
 
+  // late File images;
+  // final imagePicker = ImagePicker();
   //List<TypesDisplay> typesDisp = List<TypesDisplay>.empty();
 
   //makes the initial state to get the images for the types
@@ -31,7 +58,9 @@ class _HomeState extends State<Home> {
         elevation: 0.0,
       ),
       //this makes the title bar and search bar
-      body: Container(child: Column(children: <Widget>[
+      body: Container(
+        child: Column(
+          children: <Widget>[
           Container( 
             color: const Color(0xFFEC98C7),
             padding: EdgeInsets.symmetric(horizontal: 20),
@@ -99,12 +128,39 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
-          // Container(
-          //   height: 100,
-          //   child: Image(
-          //     image: AssetImage('data/display/dynamicCat'),
-          //   )
-          // )
+          //this should be the place where images are displayed
+          Expanded(
+            //padding: const EdgeInsets.all(8.0),
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 20,
+              ),
+              child: GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20,
+              ), 
+              itemBuilder: (context, index) {
+                return RawMaterialButton(
+                  onPressed: (() {
+                    
+                  }),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      image: DecorationImage(
+                        image: AssetImage(_wallpaper[index].wallPath),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                );
+              },
+              itemCount: _wallpaper.length,
+              ),
+            ),
+          ),
         ],
       ),
       ),
@@ -112,65 +168,13 @@ class _HomeState extends State<Home> {
   }
 }
 
-class TypeSection extends StatelessWidget {
-  String type, imageUrl;
-  TypeSection({required this.type, required this.imageUrl});
-  
-  @override
-  Widget build(BuildContext context){
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 2),
-      child: Stack(children: <Widget>[
-        ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: Image.network(imageUrl, height:70, width: 100, fit: BoxFit.cover,),
-        ),
-        Container(
-          color: Colors.purple,
-          height:70, 
-          width: 100,
-          alignment: Alignment.center,
-          child: Text(type, style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),),
-          ),
-      ],
-      ),
-    );
-  }
 
-}
+//honestly... I REALLY wanted to find a way to NOT hardcode this....but I cannot seem to find a way
 
-// class getDispBox extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context){
-//     return Container(
-//       margin: EdgeInsets.symmetric(horizontal: 2),
-//       child: Stack(children: <Widget>[
-//         ClipRRect(
-//           borderRadius: BorderRadius.circular(20),
-//           child: Image(
-//             image: AssetImage('data/display/static.jpg')
-//           ),
-//         ),
-//         Container(
-//           color: Colors.purple,
-//           height:70, 
-//           width: 100,
-//           alignment: Alignment.center,
-//           child: Text("data/display/static.jpg", style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),),
-//           ),
-//       ],
-//       ),
-//     );
-//   }
-
-// }
-
-//If this works right I'll hopefully show all the wallpappers
-class getWallpapers extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
-  
+//IN TYPESDISPLAY.DART
+class TypesDisplay{
+  final String wallPath;
+  //this is static or dynamic
+  final String type;
+  TypesDisplay({required this.wallPath, required this.type});
 }
