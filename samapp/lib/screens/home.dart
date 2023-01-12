@@ -6,11 +6,28 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:samapp/screens/search.dart';
 import 'package:samapp/screens/widgets/widgets.dart';
 //import '../imagesDisplay/typesDisplay.dart';
 
-//dud I tried really hard to make this automatic....manual wa the only way I could figure it out
+//dude I tried really hard to make this automatic....manual wa the only way I could figure it out
 List<TypesDisplay> _wallpaper = [
+  TypesDisplay(
+    wallPath: "data/wallpapers/staticBackgrounds/night_peizazh_noch_temnii_art.jpg",
+    type: "static"
+  ),
+  TypesDisplay(
+    wallPath: "data/wallpapers/staticBackgrounds/night_peizazh_noch_temnii_art.jpg",
+    type: "static"
+  ),
+  TypesDisplay(
+    wallPath: "data/wallpapers/staticBackgrounds/staticExample.jpg",
+    type: "static"
+  ),
+  TypesDisplay(
+    wallPath: "data/wallpapers/staticBackgrounds/staticExample.jpg",
+    type: "static"
+  ),
   TypesDisplay(
     wallPath: "data/wallpapers/staticBackgrounds/staticExample.jpg",
     type: "static"
@@ -48,6 +65,7 @@ class _HomeState extends State<Home> {
   //   super.initState();
 
   // }
+  TextEditingController searchCont = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,15 +82,26 @@ class _HomeState extends State<Home> {
           Container( 
             color: const Color(0xFFEC98C7),
             padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Row(children: const <Widget>[
+            child: Row(children: <Widget>[
               Expanded(
                 child: TextField(
+                  controller: searchCont,
                   decoration: InputDecoration(
                   hintText: "Search"
                 ),
                 ),
               ),
-              Icon(Icons.search)
+              GestureDetector(
+                onTap:() {
+                  Navigator.push(context, 
+                    MaterialPageRoute(
+                    builder: (context) => Search(
+                      searchedItem: searchCont.text,
+                    ),
+                  ));
+                },
+                child: Icon(Icons.search),
+              ),
             ],
             ),
           ),
@@ -147,6 +176,7 @@ class _HomeState extends State<Home> {
                     
                   }),
                   child: Container(
+                    height: 80,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       image: DecorationImage(
