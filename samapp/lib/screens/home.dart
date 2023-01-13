@@ -7,17 +7,20 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:samapp/screens/search.dart';
+import 'package:samapp/screens/static.dart';
+import 'package:samapp/screens/wallView.dart';
 import 'package:samapp/screens/widgets/widgets.dart';
 //import '../imagesDisplay/typesDisplay.dart';
 
 //dude I tried really hard to make this automatic....manual wa the only way I could figure it out
 List<TypesDisplay> _wallpaper = [
+  //data\wallpapers\staticBackgrounds\night_peizazh_noch_temnii_art.jpeg
   TypesDisplay(
-    wallPath: "data/wallpapers/staticBackgrounds/night_peizazh_noch_temnii_art.jpg",
+    wallPath: "data/wallpapers/staticBackgrounds/night_peizazh_noch_temnii_art.jpeg",
     type: "static"
   ),
   TypesDisplay(
-    wallPath: "data/wallpapers/staticBackgrounds/night_peizazh_noch_temnii_art.jpg",
+    wallPath: "data/wallpapers/staticBackgrounds/night_peizazh_noch_temnii_art.jpeg",
     type: "static"
   ),
   TypesDisplay(
@@ -118,9 +121,17 @@ class _HomeState extends State<Home> {
                   child: 
                   Stack(
                     children: [
-                      ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.asset('data/display/static.jpg', height: 60, width: 100,  fit: BoxFit.cover, alignment: Alignment.center,) 
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.push(context, 
+                          MaterialPageRoute(
+                          builder: (context) => Static(),
+                  ));
+                        },
+                        child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.asset('data/display/static.jpg', height: 60, width: 100,  fit: BoxFit.cover, alignment: Alignment.center,) 
+                        ),
                       ),
                       Container(
                         height: 60, width: 100,
@@ -161,25 +172,32 @@ class _HomeState extends State<Home> {
           Expanded(
             //padding: const EdgeInsets.all(8.0),
             child: Container(
+              height: 300,
               padding: EdgeInsets.symmetric(
                 horizontal: 10,
                 vertical: 20,
               ),
               child: GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                //shrinkWrap:true,
                 crossAxisCount: 2,
-                crossAxisSpacing: 20,
+                childAspectRatio: 1.0,
+                crossAxisSpacing: 10,
                 mainAxisSpacing: 20,
               ), 
               itemBuilder: (context, index) {
                 return RawMaterialButton(
                   onPressed: (() {
-                    
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => WallView(wallPath: _wallpaper[index].wallPath))
+                      );
                   }),
                   child: Container(
-                    height: 80,
+                    //height: 100,
                     decoration: BoxDecoration(
+                      //color: Colors.amber,
                       borderRadius: BorderRadius.circular(5),
                       image: DecorationImage(
+                        scale: 1.5,
                         image: AssetImage(_wallpaper[index].wallPath),
                         fit: BoxFit.cover,
                       ),

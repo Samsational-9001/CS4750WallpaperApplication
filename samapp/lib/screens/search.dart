@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:samapp/screens/widgets/widgets.dart';
 
 List<TypesDisplay> _wallpaper = [
+  //data\wallpapers\staticBackgrounds\night_peizazh_noch_temnii_art.jpeg
   TypesDisplay(
-    wallPath: "data/wallpapers/staticBackgrounds/staticExample.jpg",
+    wallPath: "data/wallpapers/staticBackgrounds/night_peizazh_noch_temnii_art.jpeg",
     type: "static"
   ),
   TypesDisplay(
-    wallPath: "data/wallpapers/staticBackgrounds/staticExample.jpg",
+    wallPath: "data/wallpapers/staticBackgrounds/night_peizazh_noch_temnii_art.jpeg",
     type: "static"
   ),
   TypesDisplay(
@@ -34,7 +35,6 @@ class Search extends StatefulWidget {
   //const Search({super.key});
   final String searchedItem;
   Search({required this.searchedItem});
-  @override
   State<Search> createState() => _SearchState();
 }
 
@@ -44,6 +44,7 @@ class _SearchState extends State<Search> {
   List<TypesDisplay> searchDisp = [];
   TextEditingController searchCont = new TextEditingController();
   //THIS WHOLE FUNCTION IF IT WORKS CAN BE DUPLICAYTED FOR DYNAMIC/STATIC BUTTONS
+
   getSearchedWalls(String searched) async{
     List<TypesDisplay> searchList = []; 
     searchList.addAll(_wallpaper);
@@ -52,12 +53,15 @@ class _SearchState extends State<Search> {
       searchList.forEach((element) {
       if(element.wallPath.contains(searched)){
         searchListResult.add(element);
+        //print(element);
       }
     });
     setState(() {
       searchDisp.clear();
       searchDisp.addAll(searchListResult);
     });
+    //print("object");
+    //print(searchDisp);
     return;
     }else{
       setState(() {
@@ -67,7 +71,13 @@ class _SearchState extends State<Search> {
     }
   }
   
-  @override
+   @override
+   void initState(){
+    getSearchedWalls(widget.searchedItem);
+    super.initState();
+    searchCont.text = widget.searchedItem;
+   }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -91,12 +101,7 @@ class _SearchState extends State<Search> {
               ),
               GestureDetector(
                 onTap:() {
-                  Navigator.push(context, 
-                    MaterialPageRoute(
-                    builder: (context) => Search(
-                      searchedItem: searchCont.text,
-                    ),
-                  ));
+                  getSearchedWalls(searchCont.text);
                 },
                 child: Icon(Icons.search),
               ),
@@ -133,7 +138,7 @@ class _SearchState extends State<Search> {
                   ),
                 );
               },
-              itemCount: _wallpaper.length,
+              itemCount: searchDisp.length,
               ),
             ),
           ),
