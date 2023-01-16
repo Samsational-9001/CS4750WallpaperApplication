@@ -2,42 +2,55 @@
 //import 'dart:html';
 import 'dart:io';
 import 'dart:async';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:samapp/screens/dynamic.dart';
 import 'package:samapp/screens/search.dart';
 import 'package:samapp/screens/static.dart';
 import 'package:samapp/screens/wallView.dart';
+import 'package:samapp/screens/wallViewDynamic.dart';
 import 'package:samapp/screens/widgets/widgets.dart';
+import 'package:video_player/video_player.dart';
+//import 'package:live_photos/live_photos.dart';
 //import '../imagesDisplay/typesDisplay.dart';
 
 //dude I tried really hard to make this automatic....manual wa the only way I could figure it out
+//THE IMAGE PATH LEADS TO GIFS BUT THE LINKS NEED TO BE MP4!!
+
 List<TypesDisplay> _wallpaper = [
   //data\wallpapers\staticBackgrounds\night_peizazh_noch_temnii_art.jpeg
   TypesDisplay(
     wallPath: "data/wallpapers/staticBackgrounds/night_peizazh_noch_temnii_art.jpeg",
-    type: "static"
+    type: "static",
+    link: "https://mobimg.b-cdn.net/v3/fetch/5d/5d193bfff6560f03e7bc2ecfeadef5f4.jpeg?h=900&r=0.5"
   ),
   TypesDisplay(
     wallPath: "data/wallpapers/staticBackgrounds/night_peizazh_noch_temnii_art.jpeg",
-    type: "static"
+    type: "static",
+    link: "https://mobimg.b-cdn.net/v3/fetch/5d/5d193bfff6560f03e7bc2ecfeadef5f4.jpeg?h=900&r=0.5"
   ),
   TypesDisplay(
-    wallPath: "data/wallpapers/staticBackgrounds/staticExample.jpg",
-    type: "static"
+    wallPath: "data/wallpapers/staticBackgrounds/night lantern art.jpeg",
+    type: "static",
+    link: "https://mobimg.b-cdn.net/v3/fetch/96/960badd134bffdb7e4605b605ab38c40.jpeg?h=900&r=0.5"
   ),
   TypesDisplay(
-    wallPath: "data/wallpapers/staticBackgrounds/staticExample.jpg",
-    type: "static"
+    wallPath: "data/wallpapers/staticBackgrounds/night lantern art.jpeg",
+    type: "static",
+    link: "https://mobimg.b-cdn.net/v3/fetch/96/960badd134bffdb7e4605b605ab38c40.jpeg?h=900&r=0.5"
   ),
   TypesDisplay(
-    wallPath: "data/wallpapers/staticBackgrounds/staticExample.jpg",
-    type: "static"
+    wallPath: "data/wallpapers/dynamicBackgrounds/circles.gif",
+    type: "dynamic",
+    link: "https://static.videezy.com/system/resources/previews/000/042/042/original/Ramdom_Lines_x264.mp4"
   ),
   TypesDisplay(
-    wallPath: "data/wallpapers/staticBackgrounds/staticExample.jpg",
-    type: "static"
+    wallPath: "data/wallpapers/dynamicBackgrounds/river view.gif",
+    type: "dynamic",
+    link: "https://www.desktophut.com/files/1657547800-1657547800-rocky-waterfalls-phone-wallpaper-to-iphone-and-android.mp4"
   ),
 ]; 
 
@@ -135,7 +148,7 @@ class _HomeState extends State<Home> {
                       ),
                       Container(
                         height: 60, width: 100,
-                        child: Positioned.fill(
+                        child: const Positioned.fill(
                           child: Align(
                           alignment: Alignment.bottomCenter,
                           child: Text("Static", style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 18),),
@@ -150,13 +163,21 @@ class _HomeState extends State<Home> {
                   child: 
                   Stack(
                     children: [
-                      ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.asset('data/display/dynamicCat', height: 60, width: 100, fit: BoxFit.cover, alignment: Alignment.center,) 
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.push(context, 
+                          MaterialPageRoute(
+                          builder: (context) => Dynamic(),
+                  ));
+                        },
+                        child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.asset('data/display/dynamicCat', height: 60, width: 100, fit: BoxFit.cover, alignment: Alignment.center,) 
+                        ),
                       ),
                       Container(
                         height: 60, width: 100,
-                        child: Positioned.fill(child: Align(
+                        child: const Positioned.fill(child: Align(
                           alignment: Alignment.bottomCenter,
                           child: Text("Dynamic", style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 18),),
                           )
@@ -168,6 +189,8 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
+
+
           //this should be the place where images are displayed
           Expanded(
             //padding: const EdgeInsets.all(8.0),
@@ -187,17 +210,27 @@ class _HomeState extends State<Home> {
               itemBuilder: (context, index) {
                 return RawMaterialButton(
                   onPressed: (() {
-                    Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => WallView(wallPath: _wallpaper[index].wallPath))
+                    //String thing = _wallpaper[index].wallPath;
+                    if(_wallpaper[index].type == "dynamic"){
+                      Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => WallViewDynamic(wallPath: _wallpaper[index].wallPath, wallLink: _wallpaper[index].link))
                       );
+                    }else{
+                      Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => WallView(wallPath: _wallpaper[index].wallPath, wallLink: _wallpaper[index].link))
+                      );
+                    }
+                    
                   }),
                   child: Container(
                     //height: 100,
                     decoration: BoxDecoration(
                       //color: Colors.amber,
                       borderRadius: BorderRadius.circular(5),
+                      //allows gif not mp4
                       image: DecorationImage(
                         scale: 1.5,
+                        //image: _wallpaper.type == "dynamic" ? new Container() : new Container()
                         image: AssetImage(_wallpaper[index].wallPath),
                         fit: BoxFit.cover,
                       ),
@@ -209,6 +242,9 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
+
+
+          //END IMAGE LAYOUT
         ],
       ),
       ),
@@ -224,5 +260,6 @@ class TypesDisplay{
   final String wallPath;
   //this is static or dynamic
   final String type;
-  TypesDisplay({required this.wallPath, required this.type});
+  final String link;
+  TypesDisplay({required this.wallPath, required this.type, required this.link});
 }

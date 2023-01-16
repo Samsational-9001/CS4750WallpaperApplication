@@ -37,9 +37,11 @@ List<TypesDisplay> _wallpaper = [
     wallPath: "data/wallpapers/staticBackgrounds/staticExample.jpg",
     type: "static"
   ),
+  TypesDisplay(
+    wallPath: "data/wallpapers/dynamicBackgrounds/dynamicCatWallpaper",
+    type: "dynamic"
+  ),
 ]; 
-
-
 
 class Dynamic extends StatefulWidget {
   //const MyWidget({super.key});
@@ -166,14 +168,14 @@ class _DynamicState extends State<Dynamic> {
                       borderRadius: BorderRadius.circular(5),
                       image: DecorationImage(
                         scale: 1.5,
-                        image: AssetImage(_wallpaper[index].wallPath),
+                        image: AssetImage(wallDisp[index].wallPath),
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
                 );
               },
-              itemCount: _wallpaper.length,
+              itemCount: wallDisp.length,
               ),
             ),
           ),

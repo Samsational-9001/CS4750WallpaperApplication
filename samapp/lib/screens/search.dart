@@ -1,35 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:samapp/screens/wallView.dart';
+import 'package:samapp/screens/wallViewDynamic.dart';
 import 'package:samapp/screens/widgets/widgets.dart';
 
 List<TypesDisplay> _wallpaper = [
   //data\wallpapers\staticBackgrounds\night_peizazh_noch_temnii_art.jpeg
   TypesDisplay(
     wallPath: "data/wallpapers/staticBackgrounds/night_peizazh_noch_temnii_art.jpeg",
-    type: "static"
+    type: "static",
+    link: "https://mobimg.b-cdn.net/v3/fetch/5d/5d193bfff6560f03e7bc2ecfeadef5f4.jpeg?h=900&r=0.5"
   ),
   TypesDisplay(
     wallPath: "data/wallpapers/staticBackgrounds/night_peizazh_noch_temnii_art.jpeg",
-    type: "static"
+    type: "static",
+    link: "https://mobimg.b-cdn.net/v3/fetch/5d/5d193bfff6560f03e7bc2ecfeadef5f4.jpeg?h=900&r=0.5"
   ),
   TypesDisplay(
-    wallPath: "data/wallpapers/staticBackgrounds/staticExample.jpg",
-    type: "static"
+    wallPath: "data/wallpapers/staticBackgrounds/night lantern art.jpeg",
+    type: "static",
+    link: "https://mobimg.b-cdn.net/v3/fetch/96/960badd134bffdb7e4605b605ab38c40.jpeg?h=900&r=0.5"
   ),
   TypesDisplay(
-    wallPath: "data/wallpapers/staticBackgrounds/staticExample.jpg",
-    type: "static"
+    wallPath: "data/wallpapers/staticBackgrounds/night lantern art.jpeg",
+    type: "static",
+    link: "https://mobimg.b-cdn.net/v3/fetch/96/960badd134bffdb7e4605b605ab38c40.jpeg?h=900&r=0.5"
   ),
   TypesDisplay(
-    wallPath: "data/wallpapers/staticBackgrounds/staticExample.jpg",
-    type: "static"
-  ),
-  TypesDisplay(
-    wallPath: "data/wallpapers/staticBackgrounds/staticExample.jpg",
-    type: "static"
+    wallPath: "data/wallpapers/dynamicBackgrounds/circles.gif",
+    type: "dynamic",
+    link: "https://static.videezy.com/system/resources/previews/000/042/042/original/Ramdom_Lines_x264.mp4"
   ),
 ]; 
-
-
 
 class Search extends StatefulWidget {
   //const Search({super.key});
@@ -124,7 +125,15 @@ class _SearchState extends State<Search> {
               itemBuilder: (context, index) {
                 return RawMaterialButton(
                   onPressed: (() {
-                    
+                    if(_wallpaper[index].type == "dynamic"){
+                      Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => WallViewDynamic(wallPath: _wallpaper[index].wallPath, wallLink: _wallpaper[index].link))
+                      );
+                    }else{
+                      Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => WallView(wallPath: _wallpaper[index].wallPath, wallLink: _wallpaper[index].link))
+                      );
+                    }
                   }),
                   child: Container(
                     height: 80,
@@ -153,5 +162,6 @@ class TypesDisplay{
   final String wallPath;
   //this is static or dynamic
   final String type;
-  TypesDisplay({required this.wallPath, required this.type});
+  final String link;
+  TypesDisplay({required this.wallPath, required this.type, required this.link});
 }

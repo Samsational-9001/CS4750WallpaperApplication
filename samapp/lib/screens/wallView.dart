@@ -1,20 +1,40 @@
 import 'dart:typed_data';
-import 'dart:io' show Platform;
+import 'dart:io' show Directory, File, Platform;
+import 'package:async_wallpaper/async_wallpaper.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:path_provider/path_provider.dart';
+//import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+//import 'package:flutter_wallpaper_manager/flutter_wallpaper_manager.dart';
+//import 'package:image_gallery_saver/image_gallery_saver.dart';
+//import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter/services.dart' show PlatformException, rootBundle;
+//import 'package:wallpaper_manager_flutter/wallpaper_manager_flutter.dart';
+//import 'package:wallpaper_manager/wallpaper_manager.dart';
+import 'package:path/path.dart' as Path;
 
 class WallView extends StatefulWidget {
+  
   //const WallView({super.key});
   final String wallPath;
-  WallView({required this.wallPath});
+  final String wallLink;
+  WallView({required this.wallPath, required this.wallLink});
   @override
   State<WallView> createState() => _WallViewState();
 }
 
 class _WallViewState extends State<WallView> {
-  var wallPath;
+  late String result;
+  //String LINK = "https://mobimg.b-cdn.net/v3/fetch/5d/5d193bfff6560f03e7bc2ecfeadef5f4.jpeg?h=900&r=0.5";
+
+  @override
+   void initState(){
+    super.initState();
+   }
+   
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,8 +55,42 @@ class _WallViewState extends State<WallView> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
             GestureDetector(
-              onTap: () {
-                _save();
+              onTap: () async{
+                //I only want home screen changed
+                try{
+                
+                  // File image = await getImageFileFromAssets(widget.wallPath);
+
+                  // final extDir = await getExternalStorageDirectory();
+                  // Path of file
+                  //final myImagePath = '${extDir?.path}/Walls';
+
+                  // Create directory inside where file will be saved
+                  // await Directory(myImagePath).create();
+                  // print(myImagePath);
+                  // print(image);
+
+                // File copied to ext directory.
+                //File newImage = await image.copy("$myImagePath/${Path.basename(widget.wallPath)}");
+                
+                //print(newImage.path);
+                  //await new Directory().create();
+                  // final file = File('${(await getTemporaryDirectory()).path}/'+widget.wallPath);
+                  // print(file);
+                  // await file.writeAsBytes(byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+                  var file = await DefaultCacheManager().getSingleFile(widget.wallLink);
+                  int location = AsyncWallpaper.HOME_SCREEN;
+                  result = await AsyncWallpaper.setWallpaperFromFile(
+                    filePath: file.path, 
+                    wallpaperLocation: location,
+                    goToHome: true)
+                    ? 'Wallpaper set'
+                    : 'Failed to get wallpaper.';
+                  //await AsyncWallpaper.setWallpaperFromFile(filePath: wallPathFin, );
+                } on PlatformException {
+                  result = "Failed to get wallpapaer";
+                }
+                //_save();
                 //Navigator.pop(context);
               },
               child: Stack(
@@ -75,27 +129,7 @@ class _WallViewState extends State<WallView> {
       ),
     );
   }
-//this saves image into gallery
-  _save() async {
-    if(Platform.isAndroid){
-      await _askPermission();
-    }
-    var response = await Dio().get(widget.wallPath,
-        options: Options(responseType: ResponseType.bytes));
-    final result =
-    await ImageGallerySaver.saveImage(Uint8List.fromList(response.data));
-    print(result);
-    Navigator.pop(context);
-  }
 
-  _askPermission() async {
-    if(Platform.isIOS){
-      //Map<PermissionGroup, PermissionStatus> permissions = 
-      await PermissionHandler().requestPermissions([PermissionGroup.photos]);
-    }else{
-      PermissionStatus permission = await PermissionHandler().checkPermissionStatus(PermissionGroup.storage);
-    }
-  }
 
   
 }
