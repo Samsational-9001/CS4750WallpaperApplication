@@ -57,6 +57,7 @@ class _WallViewState extends State<WallView> {
             GestureDetector(
               onTap: () async{
                 //I only want home screen changed
+                //....as you can see from the amount of comments I struggled to get this to work
                 try{
                 
                   // File image = await getImageFileFromAssets(widget.wallPath);

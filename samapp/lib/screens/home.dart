@@ -28,9 +28,9 @@ List<TypesDisplay> _wallpaper = [
     link: "https://mobimg.b-cdn.net/v3/fetch/5d/5d193bfff6560f03e7bc2ecfeadef5f4.jpeg?h=900&r=0.5"
   ),
   TypesDisplay(
-    wallPath: "data/wallpapers/staticBackgrounds/night_peizazh_noch_temnii_art.jpeg",
+    wallPath: "data/wallpapers/staticBackgrounds/mountain-lake-nature-gora-ozero-ptitsa-nebo-gorizont-106821.jpeg",
     type: "static",
-    link: "https://mobimg.b-cdn.net/v3/fetch/5d/5d193bfff6560f03e7bc2ecfeadef5f4.jpeg?h=900&r=0.5"
+    link: "https://mobimg.b-cdn.net/v3/fetch/19/1901860665ae1ad2d545fcc347cc9b40.jpeg?h=900&r=0.5"
   ),
   TypesDisplay(
     wallPath: "data/wallpapers/staticBackgrounds/night lantern art.jpeg",
@@ -38,9 +38,9 @@ List<TypesDisplay> _wallpaper = [
     link: "https://mobimg.b-cdn.net/v3/fetch/96/960badd134bffdb7e4605b605ab38c40.jpeg?h=900&r=0.5"
   ),
   TypesDisplay(
-    wallPath: "data/wallpapers/staticBackgrounds/night lantern art.jpeg",
+    wallPath: "data/wallpapers/staticBackgrounds/road-red-trees-nature-doroga-povorot-derevya-krasnii-gora-peizazh-61856.jpeg",
     type: "static",
-    link: "https://mobimg.b-cdn.net/v3/fetch/96/960badd134bffdb7e4605b605ab38c40.jpeg?h=900&r=0.5"
+    link: "https://mobimg.b-cdn.net/v3/fetch/81/81b69b0cee484911477757953c498edc.jpeg?h=900&r=0.5"
   ),
   TypesDisplay(
     wallPath: "data/wallpapers/dynamicBackgrounds/circles.gif",
@@ -51,6 +51,16 @@ List<TypesDisplay> _wallpaper = [
     wallPath: "data/wallpapers/dynamicBackgrounds/river view.gif",
     type: "dynamic",
     link: "https://www.desktophut.com/files/1657547800-1657547800-rocky-waterfalls-phone-wallpaper-to-iphone-and-android.mp4"
+  ),
+  TypesDisplay(
+    wallPath: "data/wallpapers/dynamicBackgrounds/cool-storm-center-free-live-phone-wallpaper.gif",
+    type: "dynamic",
+    link: "https://www.desktophut.com/files/1657547616-1657547616-cool-storm-center-free-live-phone-wallpaper.mp4"
+  ),
+  TypesDisplay(
+    wallPath: "data/wallpapers/dynamicBackgrounds/Cool Lunar Landscape Free Live Phone Wallpaper.gif",
+    type: "dynamic",
+    link: "https://www.desktophut.com/files/1657546942-1657546942-cool-lunar-landscape-free-live-phone-wallpaper.mp4"
   ),
 ]; 
 
@@ -148,12 +158,12 @@ class _HomeState extends State<Home> {
                       ),
                       Container(
                         height: 60, width: 100,
-                        child: const Positioned.fill(
+                        // child: const Positioned.fill(
                           child: Align(
                           alignment: Alignment.bottomCenter,
                           child: Text("Static", style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 18),),
                           )
-                        ),
+                        //),
                       )
                     ],
                   )
@@ -177,11 +187,12 @@ class _HomeState extends State<Home> {
                       ),
                       Container(
                         height: 60, width: 100,
-                        child: const Positioned.fill(child: Align(
+                        // child: const Positioned.fill(
+                          child: Align(
                           alignment: Alignment.bottomCenter,
                           child: Text("Dynamic", style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 18),),
                           )
-                        ),
+                        // ),
                       )
                     ],
                   )
