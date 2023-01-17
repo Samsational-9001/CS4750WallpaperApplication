@@ -96,9 +96,13 @@ class _WallViewDynamicState extends State<WallViewDynamic> {
               child: Stack(
                 children: <Widget>[
                   Container(
-                    height: 40,
+                    height: 60,
                     width: MediaQuery.of(context).size.width/2,
-                    color: Color(0xff1C1B1B).withOpacity(0.6),
+                    decoration: BoxDecoration(
+                      color: Color(0xff1C1B1B).withOpacity(0.6),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    
                   ),
                   Container(
                     height: 60,
